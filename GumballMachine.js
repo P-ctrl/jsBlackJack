@@ -65,7 +65,7 @@ function GetGumball() {
 
 function UpdateUI(gumball) {
     document.getElementById("Dealer").innerHTML = myFavoriteGumballMachine.GetNumberOfGumballsLeft();
-    document.getElementById("Your hand").innerHTML = JSON.stringify(gumball);
+    document.getElementById("Your card").innerHTML = JSON.stringify(gumball);
 }
 
 //initialize output values
