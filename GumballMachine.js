@@ -1,3 +1,8 @@
+function UpdateHand(cardEval) {
+    let totSum = +$('#Hand').html();
+    totSum += cardEval;
+    $('#Hand').html(totSum);
+}
 
 function GetRandomNumber(max) {
     return Math.floor(Math.random() * max)
@@ -32,6 +37,17 @@ class GumballMachine {
             // console.log(this.Gumballs);
             let currBall = this.Gumballs.splice(GetRandomNumber(this.Gumballs.length - 1), 1)[0];
             // console.log(currBall);
+            let cardEval = 0
+            if (currBall.Card.value < 1) {
+                cardEval = 11;
+            }
+            else if (currBall.Card.value >= 10) {
+                cardEval = 10;
+            }
+            else {
+                cardEval = currBall.Card.value + 1;
+            }
+            UpdateHand(cardEval);
             return currBall.Card.Card + " of " + currBall.Color.Suit;
         }
         else {
