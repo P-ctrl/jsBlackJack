@@ -2,6 +2,23 @@ function UpdateHand(cardEval) {
     let totSum = +$('#Hand').html();
     totSum += cardEval;
     $('#Hand').html(totSum);
+    if (totSum > 21) {
+        alert('BUST!');
+    }
+}
+
+function cardEval(card) {
+    let cardEval = 0;
+    if (card < 1) {
+        cardEval = 11;
+    }
+    else if (card >= 10) {
+        cardEval = 10;
+    }
+    else {
+        cardEval = card + 1;
+    }
+    return cardEval;
 }
 
 function GetRandomNumber(max) {
@@ -15,7 +32,7 @@ function randomProperty(obj) {
 
 function GenerateGumballs() {
     let arr = []
-    let numToMake = GetRandomNumber(10)
+    let numToMake = GetRandomNumber(52)
     for (let i = 0; i < numToMake; ++i) {
         arr.push(new Gumball(randomProperty(Colors),randomProperty(Cards)))
     }
@@ -37,23 +54,22 @@ class GumballMachine {
             // console.log(this.Gumballs);
             let currBall = this.Gumballs.splice(GetRandomNumber(this.Gumballs.length - 1), 1)[0];
             // console.log(currBall);
-            let cardEval = 0
-            if (currBall.Card.value < 1) {
-                cardEval = 11;
-            }
-            else if (currBall.Card.value >= 10) {
-                cardEval = 10;
-            }
-            else {
-                cardEval = currBall.Card.value + 1;
-            }
-            UpdateHand(cardEval);
+            UpdateHand(cardEval(currBall.Card.value));
             return currBall.Card.Card + " of " + currBall.Color.Suit;
         }
         else {
             alert('BUST!');
             return 0;
         }
+    }
+
+    DealerCard() {
+        let totSum = 0;
+        while (totSum < 17) {
+            let currBall = this.Gumballs.splice(GetRandomNumber(this.Gumballs.length - 1), 1)[0];
+            totSum += cardEval(currBall.Card.value);
+        }
+        return totSum;
     }
 
     GetNumberOfGumballsLeft() {
@@ -80,8 +96,23 @@ function GetGumball() {
 }
 
 function UpdateUI(gumball) {
-    document.getElementById("Dealer").innerHTML = myFavoriteGumballMachine.GetNumberOfGumballsLeft();
+    document.getElementById("count").innerHTML = myFavoriteGumballMachine.GetNumberOfGumballsLeft();
     document.getElementById("Your card").innerHTML = JSON.stringify(gumball);
+}
+
+function Dealer() {
+    let totSum = myFavoriteGumballMachine.DealerCard();
+    $('#Dealer').html(totSum);
+    if (totSum > 21) {
+        alert("Dealer busts!");
+    }
+    else if (totSum > +$('#Hand').html()) {
+        alert("Dealer wins!");
+    }
+    else {
+        alert("You win!");
+    }
+
 }
 
 //initialize output values
