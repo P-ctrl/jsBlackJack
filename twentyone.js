@@ -139,5 +139,13 @@ function Dealer() {
 
 }
 
+// Shuffle button is clicked
+function spawnDecks() {
+    let decknumber = $('#Decks').val();
+    console.log(decknumber);
+    var theDecks = new Decks($('#Decks').val());
+    console.log(theDecks);
+}
+
 //initialize output values
 UpdateUI(null);

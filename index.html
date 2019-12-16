@@ -24,8 +24,9 @@
 
 <body>
     <div>
-        <div>Remaining cards</div>
-        <div id="count"></div>
+        <label>Number of decks:</label>
+        <input type="number" name="Decks" min="1" max="6" value="4" />
+        <button type="button" onClick="spawnDecks()" class="btn btn-success">Shuffle</button>
     </div>
     <div>
         <div>Card drawn</div>
@@ -36,17 +37,17 @@
         <div id="Hand">0</div>
     </div>
     <div>
-        <button type="button" onClick="GetGumball()" class="btn btn-success">Hit</button>
-        <button type="button" onClick="Dealer()" class="btn btn-success">Stand</button>
+        <button type="button" onClick="dealHand()" class="btn btn-success">Hit</button>
+        <button type="button" onClick="endTurn()" class="btn btn-success">Stand</button>
         <!-- <button type="button" onClick="AllBalls()" class="btn btn-success">Pull out all gumball</button> -->
     </div>
     <div>
         <div>Dealer</div>
         <div id="Dealer">0</div>
     </div>
-    <script src="Colors.js"></script>
-    <script src="Gumball.js"></script>
-    <script src="GumballMachine.js"></script>
+    <script src="cards.js"></script>
+    <script src="deckbuilder.js"></script>
+    <script src="twentyone.js"></script>
 </body>
 
 </html>
