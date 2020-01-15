@@ -15,11 +15,7 @@
 
 <body>
     <button class="btn btn-primary" id="draw-button" role="button">Draw a card</button>
-    <div class="card-deck player-hand">
-        <div class="card drawn-cards d-none">
-            <h4 class="card-title">KOrt</h4>
-            <div class="card-body">kort</div>
-        </div>
+    <div class="row row-cols-4 player-hand">
     </div>
 
 
@@ -40,10 +36,12 @@
 
     function newCard(title) {
         var cardwhole = $(`
-            <div class="card drawn-cards">
+        <div class="col">
+            <div class="card drawn-cards" style="width: 10rem">
                 <h4 class="card-title">${title}</h4>
                 <div class="card-body"></div>
-            </div>`
+            </div>
+        </div>`
         );
         $('.player-hand').prepend(cardwhole);
     }
