@@ -112,17 +112,20 @@ function colorizer(suit) {
     }
 }
 
-function newCard(drawer, title) {
+// Function that creates divs and stuff for playing cards
+
+/* function newCard(drawer, title) {
     var cardwhole = $(`
-    <div class="col">
+    <div class="col text-${colorizer(title.suit)}">
         <div class="card drawn-cards" style="width: 10rem">
-            <h4 class="card-title">${title.value} <span class="text-${colorizer(title.suit)}">${drawSymbols(cardEval(title.value),title.suit)}</span></h4>
-            <div class="card-body"></div>
+            <h4 class="card-header">${title.value} ${symbolizer(title.suit)}</h4>
+            <div class="card-body">${drawSymbols(cardEval(title.value),title.suit)}</div>
+            <h4 class="card-footer text-right">${symbolizer(title.suit)} ${title.value}</h4>
         </div>
     </div>`
     );
     $(drawer).prepend(cardwhole);
-}
+} */
 
 // Button adds card to hand
 
