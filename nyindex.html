@@ -9,6 +9,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=IM+Fell+Great+Primer+SC&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+</style>
 
     <title>Blackjack!</title>
 </head>
@@ -18,47 +25,57 @@
     <div class="jumbotron">
         <h1 class="display-4" id="h1-jumbo">Welcome to jsBlackJack!</h1>
         <p class="lead" id="p-jumbo">
-            This is the classic card game known as Black Jack or Twenty-One. Start by shuffling a number of decks together.
+            This is the classic card game known as Black Jack or Twenty-One. Start by shuffling a number of decks
+            together.
         </p>
         <hr class="my-4" id="hr-jumbo">
         <label>Number of decks:</label>
-        <input type="number" name="Decks" min="1" max="6" value="4" id="nofdecks" class="mx-2"/>
-        <button type="button" onClick="spawnDecks()" class="mx-1 btn btn-outline-primary" id="button-jumbo">Shuffle</button>
+        <input type="number" name="Decks" min="1" max="6" value="4" id="nofdecks" class="mx-2" />
+        <button type="button" onClick="spawnDecks()" class="mx-1 btn btn-outline-primary"
+            id="button-jumbo">Shuffle</button>
     </div>
     <div class="m-5 bg-info">
         <h3 class="p-auto">Dealer's hand</h3>
-    <div class="container-fluid">
-    <div class="row" id="dealersHand"></div>
-    </div>
-    <div class="d-none" id="dealersDiv">Dealer has <span id="dealersSum"></span></div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-primary" id="draw-button" role="button">Draw a card</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-primary" id="stand-button" role="button">Stand</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-primary disabled" id="split-button" role="button">Split</button>
+        <div class="container-fluid">
+            <div class="row">
+                <h1 class="bg-light p-auto" style="font-size: 15vw" id="dealersHand"></h1>
             </div>
         </div>
-    </div>
-    <div class="row row-cols-4" id="playersHand">
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+        <div class="d-none" id="dealersDiv">Dealer has <span id="dealersSum"></span></div>
+        <div class="d-none" id="dealersBust">Dealer has busted!</div>
+        <div class="d-none" id="dealers21">Dealer has Blackjack!</div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" id="draw-button" role="button">Draw a card</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" id="stand-button" role="button">Stand</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary disabled" id="split-button" role="button">Split</button>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row row-cols-4">
+                <h1 class="bg-light p-auto" style="font-size: 15vw" id="playersHand">
+                </h1>
+            </div>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
         <script src="nycardart.js"></script>
-    <script src="nyscript.js"></script>
+        <script src="nyscript.js"></script>
 </body>
 
 </html>

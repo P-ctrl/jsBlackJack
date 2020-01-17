@@ -59,7 +59,7 @@ class Card {
 
 class Decks {
     constructor() {
-        this.deck = [];
+        this.deck = [0];
     }
     createDeck(Decks, Suits, Values) {
         for (let i = Decks; i > 0; i--) {
@@ -75,26 +75,45 @@ class Decks {
 
 let DealerDeck = new Decks;
 
-// Function for the button that constructs the intial deck
+// Function for the button that constructs the initial deck
 
 function spawnDecks() {
+    DealerDeck.deck = [0];
+    PlayerHand = [0];
+    DealerHand = [0];
     DealerDeck.createDeck($('#nofdecks').val(), Suits, Values);
+    $('.cardsInPlay').remove('.cardsInPlay');
+    dDrawCard();
+    pDrawCard();
+    pDrawCard();
     $('#h1-jumbo').addClass('d-none');
     $('#p-jumbo').addClass('d-none');
     $('#hr-jumbo').addClass('d-none');
-    DealerHand.unshift(DealerDeck.deck.shift());
-    DealerHand[DealerHand.length-1] += cardEval(DealerHand[0].value);
-    newCard('#dealersHand',DealerHand[0]);
-    $('#dealersSum').html(DealerHand[DealerHand.length-1]);
+    $('#dealers21').addClass('d-none');
+    $('#dealersBust').addClass('d-none');
+    $('#dealersSum').html(DealerHand[DealerHand.length - 1]);
     $('#dealersDiv').removeClass('d-none');
     $('#button-jumbo').html('Restart');
+    console.log(DealerDeck.deck);
+}
+
+function dDrawCard() {
+    DealerHand.unshift(DealerDeck.deck.shift());
+    DealerHand[DealerHand.length - 1] += cardEval(DealerHand[0].value);
+    newCard('#dealersHand', DealerHand[0]);
+}
+
+function pDrawCard() {
+    PlayerHand.unshift(DealerDeck.deck.shift());
+    PlayerHand[PlayerHand.length - 1] += cardEval(PlayerHand[0].value);
+    newCard('#playersHand', PlayerHand[0]);
 }
 
 // Card graphics
 
 function drawSymbols(values, suits) {
     let symbols = symbolizer(suits);
-    for ( ; values > 1 ; values--) {
+    for (; values > 1; values--) {
         symbols += symbolizer(suits);
     }
     return symbols
@@ -130,44 +149,40 @@ function colorizer(suit) {
 } */
 
 function newCard(drawer, title) {
-    console.log(title.value + ' OF ' + title.suit);
-    console.log(uniCard['Jack OF Clubs']);
-    uniArt = $(`<h1 class="bg-light p-auto" style="font-size: 15vw">&#x${uniCard[title.value + ' OF ' + title.suit]};</h1>`);
+    uniArt = $(`<span class="cardsInPlay text-${colorizer(title.suit)}">&#x${uniCard[title.value + ' OF ' + title.suit]};</span>`);
     $(drawer).prepend(uniArt);
 }
 
 // Button adds card to hand
 
 $('#draw-button').click(function () {
-    PlayerHand.unshift(DealerDeck.deck.shift());
-    PlayerHand[PlayerHand.length-1] += cardEval(PlayerHand[0].value);
-    newCard('#playersHand',PlayerHand[0]);
+    pDrawCard();
     console.log(PlayerHand);
-    console.log(cardEval(PlayerHand[PlayerHand.length-1]));
-    bustCheck('player',PlayerHand[PlayerHand.length-1]);
+    console.log(cardEval(PlayerHand[PlayerHand.length - 1]));
+    bustCheck('player', PlayerHand[PlayerHand.length - 1]);
 });
-
-;
 
 $('#stand-button').click(function () {
-    DealerHand.unshift(DealerDeck.deck.shift());
-    DealerHand[DealerHand.length-1] += cardEval(DealerHand[0].value);
-    bustCheck('dealer',DealerHand[DealerHand.length-1]);
+    /* DealerHand.unshift(DealerDeck.deck.shift());
+    DealerHand[DealerHand.length-1] += cardEval(DealerHand[0].value); */
+    bustCheck('dealer', DealerHand[DealerHand.length - 1]);
 });
 
-
-function bustCheck(drawer,sum) {
+function bustCheck(drawer, sum) {
     switch (drawer) {
         case 'dealer':
             if (sum === 21) {
-                console.log('Dealer Blackjack!');
+                $('#dealers21').removeClass('d-none');
+                $('#dealersDiv').addClass('d-none');
             } else if (sum > 21) {
-                console.log('Dealer bust');
+                $('#dealersBust').removeClass('d-none');
+                $('#dealersDiv').addClass('d-none');
             } else if (sum < 17) {
                 DealerHand.unshift(DealerDeck.deck.shift());
-                DealerHand[DealerHand.length-1] += cardEval(DealerHand[0].value);
-                newCard('#dealersHand',DealerHand[0]);
-                bustCheck('dealer',DealerHand[DealerHand.length-1]);
+                DealerHand[DealerHand.length - 1] += cardEval(DealerHand[0].value);
+                newCard('#dealersHand', DealerHand[0]);
+                bustCheck('dealer', DealerHand[DealerHand.length - 1]);
+                $('#dealersSum').html(DealerHand[DealerHand.length - 1]);
             } else {
                 console.log(sum);
             }
