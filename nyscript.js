@@ -79,17 +79,15 @@ let DealerDeck = new Decks;
 
 function spawnDecks() {
     DealerDeck.createDeck($('#nofdecks').val(), Suits, Values);
-    console.log(DealerDeck.deck)
     $('#h1-jumbo').addClass('d-none');
     $('#p-jumbo').addClass('d-none');
     $('#hr-jumbo').addClass('d-none');
-    console.log('Dealer hand size ' + DealerHand.length);
     DealerHand.unshift(DealerDeck.deck.shift());
     DealerHand[DealerHand.length-1] += cardEval(DealerHand[0].value);
     newCard('#dealersHand',DealerHand[0]);
-    console.log('Dealer hand size ' + DealerHand.length);
-    console.log(DealerHand[DealerHand.length-1])
-    // console.log(deckShuffler(DealerDeck.deck));
+    $('#dealersSum').html(DealerHand[DealerHand.length-1]);
+    $('#dealersDiv').removeClass('d-none');
+    $('#button-jumbo').html('Restart');
 }
 
 // Card graphics
@@ -126,6 +124,17 @@ function colorizer(suit) {
     );
     $(drawer).prepend(cardwhole);
 } */
+
+/* function findArt(title) {
+    return uniCard["title.value" of "title.suit"];
+} */
+
+function newCard(drawer, title) {
+    console.log(title.value + ' OF ' + title.suit);
+    console.log(uniCard['Jack OF Clubs']);
+    uniArt = $(`<h1 class="bg-light p-auto" style="font-size: 15vw">&#x${uniCard[title.value + ' OF ' + title.suit]};</h1>`);
+    $(drawer).prepend(uniArt);
+}
 
 // Button adds card to hand
 
