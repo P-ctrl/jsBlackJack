@@ -78,23 +78,35 @@ let DealerDeck = new Decks;
 // Function for the button that constructs the initial deck
 
 function spawnDecks() {
-    DealerDeck.deck = [0];
+/*     DealerDeck.deck = [0];
     PlayerHand = [0];
-    DealerHand = [0];
+    DealerHand = [0]; */
+    restartGame();
     DealerDeck.createDeck($('#nofdecks').val(), Suits, Values);
-    $('.cardsInPlay').remove('.cardsInPlay');
     dDrawCard();
     pDrawCard();
     pDrawCard();
-    $('#h1-jumbo').addClass('d-none');
-    $('#p-jumbo').addClass('d-none');
-    $('#hr-jumbo').addClass('d-none');
-    $('#dealers21').addClass('d-none');
-    $('#dealersBust').addClass('d-none');
     $('#dealersSum').html(DealerHand[DealerHand.length - 1]);
-    $('#dealersDiv').removeClass('d-none');
     $('#button-jumbo').html('Restart');
     console.log(DealerDeck.deck);
+}
+
+function restartGame() {
+    if (DealerDeck.deck != 0) {
+    DealerDeck.deck = [0];
+    PlayerHand = [0];
+    DealerHand = [0];
+    $('.cardsInPlay').remove('.cardsInPlay');
+    $('#draw-button').prop('disabled', false);
+    $('#draw-button').html('Hit');
+    } else {
+        $('#h1-jumbo').addClass('d-none');
+        $('#p-jumbo').addClass('d-none');
+        $('#hr-jumbo').addClass('d-none');
+        $('#dealers21').addClass('d-none');
+        $('#dealersBust').addClass('d-none');
+        $('#dealersDiv').removeClass('d-none');
+    }
 }
 
 function dDrawCard() {
@@ -216,3 +228,7 @@ function bustCheck(drawer, sum) {
 /* function bust() {
     $('#stand-button').addClass('.disabled');
 } */
+
+function whoWon() {
+
+}
