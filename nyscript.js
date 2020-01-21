@@ -232,3 +232,19 @@ function bustCheck(drawer, sum) {
 function whoWon() {
 
 }
+
+/* function centeredText(string, fontSize, color) {
+    var i = string.length;
+    i = i*fontSize*0.62;
+    if (i > canvas.width) {
+      i = canvas.width;
+    }
+    ctx.fillStyle = "RGBA(255, 255, 255, 0.8)";
+    ctx.fillRect(canvas.width / 2 - i / 2,canvas.height / 2 - (fontSize * 1.5) / 2, i, (fontSize * 1.5) );
+    ctx.font = fontSize.toString() + "px monospace";
+    ctx.fillStyle = color;
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+
+    ctx.fillText(string, canvas.width / 2, canvas.height / 2);
+} */

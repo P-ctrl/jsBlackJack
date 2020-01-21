@@ -20,7 +20,7 @@
     <title>Blackjack!</title>
 </head>
 
-<body class="bg-info">
+<body>
 
     <div class="jumbotron">
         <h1 class="display-4" id="h1-jumbo">Welcome to jsBlackJack!</h1>
@@ -34,12 +34,12 @@
         <button type="button" onClick="spawnDecks()" class="mx-1 btn btn-outline-primary"
             id="button-jumbo">Shuffle</button>
     </div>
-    <div class="m-5 bg-info">
+    <div>
         <h3 class="w-100 p-auto text-center">Dealer's hand</h3>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-2"></div>
-                <div class="col-8" style="background-color: rgba(47,71,48,1); height: 20vw">
+                <div class="col-8" style="background-color: rgba(255,255,255,1); height: 20vw">
                     <h1 style="font-size: 15vw;" id="dealersHand"></h1>
                 </div>
                 <div class="col-2"></div>
@@ -48,23 +48,18 @@
         <div class="d-none" id="dealersDiv">Dealer has <span id="dealersSum"></span></div>
         <div class="d-none" id="dealersBust">Dealer has busted!</div>
         <div class="d-none" id="dealers21">Dealer has Blackjack!</div>
-        <div class="container-fluid">
+        <div class="container-fluid my-5">
             <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary" id="draw-button" role="button">Hit</button>
+                <div class="col-1 align-self-start p-auto m-auto">
+                    <button class="btn btn-primary my-1" id="draw-button" role="button">Hit</button>
+                    <button class="btn btn-primary my-1" id="stand-button" role="button">Stand</button>
+                    <button class="btn btn-primary disabled my-1" id="split-button" role="button">Split</button>
                 </div>
-                <div class="col">
-                    <button class="btn btn-primary" id="stand-button" role="button">Stand</button>
+                <div class="col-8" style="background-color: rgba(255,255,255,1); height: 20vw">
+                    <h1 class="p-auto" style="font-size: 15vw" id="playersHand">
+                    </h1>
                 </div>
-                <div class="col">
-                    <button class="btn btn-primary disabled" id="split-button" role="button">Split</button>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row row-cols-4">
-                <h1 class="bg-light p-auto" style="font-size: 15vw" id="playersHand">
-                </h1>
+                <div class="col-2"></div>
             </div>
         </div>
         <!-- Optional JavaScript -->
