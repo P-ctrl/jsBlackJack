@@ -86,7 +86,8 @@ function spawnDecks() {
     dDrawCard();
     pDrawCard();
     pDrawCard();
-    $('#dealersSum').html(DealerHand[DealerHand.length - 1]);
+    $('#dealersSum').html(DealerHand[DealerHand.length - 1] + '.');
+    bustCheck('player', PlayerHand[PlayerHand.length - 1]);
     $('#button-jumbo').html('Restart');
     console.log(DealerDeck.deck);
 }
@@ -103,9 +104,7 @@ function restartGame() {
         $('#h1-jumbo').addClass('d-none');
         $('#p-jumbo').addClass('d-none');
         $('#hr-jumbo').addClass('d-none');
-        $('#dealers21').addClass('d-none');
-        $('#dealersBust').addClass('d-none');
-        $('#dealersDiv').removeClass('d-none');
+        $('#gameState').removeClass('d-none');
     }
 }
 
@@ -184,30 +183,27 @@ function bustCheck(drawer, sum) {
     switch (drawer) {
         case 'dealer':
             if (sum === 21) {
-                $('#dealers21').removeClass('d-none');
-                $('#dealersDiv').addClass('d-none');
+                $('#dealersSum').html('Blackjack!');
             } else if (sum > 21) {
-                $('#dealersBust').removeClass('d-none');
-                $('#dealersDiv').addClass('d-none');
+                $('#dealersSum').html('busted.');
             } else if (sum < 17) {
                 DealerHand.unshift(DealerDeck.deck.shift());
                 DealerHand[DealerHand.length - 1] += cardEval(DealerHand[0].value);
                 newCard('#dealersHand', DealerHand[0]);
                 bustCheck('dealer', DealerHand[DealerHand.length - 1]);
-                $('#dealersSum').html(DealerHand[DealerHand.length - 1]);
             } else {
-                console.log(sum);
+                $('#dealersSum').html(DealerHand[DealerHand.length - 1] + '.');
             }
             break;
         case 'player':
             if (sum === 21) {
-                console.log('Blackjack!');
+                $('#playerSum').html('Blackjack!');
             } else if (sum > 21) {
                 $('#draw-button').prop('disabled', true);
                 $('#draw-button').html('Bust!');
-                console.log('Bust!');
+                $('#playerSum').html('busted.');
             } else {
-                console.log(sum);
+                $('#playerSum').html(PlayerHand[PlayerHand.length - 1] + '.');
             }
             break;
     }
