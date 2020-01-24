@@ -2,6 +2,7 @@ const Suits = ["Spades", "Hearts", "Diamonds", "Clubs"];
 const SuitsSymbols = ["♠", "♥", "♦", "♣"];
 const Values = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"];
 var PlayerHand = [0], DealerHand = [0];
+let winnar;
 
 function cardEval(aCard) {
     switch (aCard) {
@@ -186,6 +187,7 @@ function bustCheck(drawer, sum) {
                 $('#dealersSum').html('Blackjack!');
             } else if (sum > 21) {
                 $('#dealersSum').html('busted.');
+                winnar = 'Player';
             } else if (sum < 17) {
                 DealerHand.unshift(DealerDeck.deck.shift());
                 DealerHand[DealerHand.length - 1] += cardEval(DealerHand[0].value);
@@ -193,6 +195,7 @@ function bustCheck(drawer, sum) {
                 bustCheck('dealer', DealerHand[DealerHand.length - 1]);
             } else {
                 $('#dealersSum').html(DealerHand[DealerHand.length - 1] + '.');
+                whoWon();
             }
             break;
         case 'player':
@@ -226,7 +229,12 @@ function bustCheck(drawer, sum) {
 } */
 
 function whoWon() {
-
+    if (PlayerHand[PlayerHand.length - 1] > DealerHand[DealerHand.length - 1]) {
+        winnar = 'Player';
+    } else {
+        winnar = 'Dealer';
+    }
+    $('#winnarMsg').html(winnar);
 }
 
 /* function centeredText(string, fontSize, color) {
