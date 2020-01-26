@@ -3,6 +3,7 @@ const SuitsSymbols = ["♠", "♥", "♦", "♣"];
 const Values = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"];
 var PlayerHand = [0], DealerHand = [0];
 let winnar;
+let goOn = 0;
 
 function cardEval(aCard) {
     switch (aCard) {
@@ -96,17 +97,28 @@ function spawnDecks() {
 function restartGame() {
     if (DealerDeck.deck != 0) {
     DealerDeck.deck = [0];
-    PlayerHand = [0];
-    DealerHand = [0];
-    $('.cardsInPlay').remove('.cardsInPlay');
-    $('#draw-button').prop('disabled', false);
-    $('#draw-button').html('Hit');
+    resetHands();
     } else {
         $('#h1-jumbo').addClass('d-none');
         $('#p-jumbo').addClass('d-none');
         $('#hr-jumbo').addClass('d-none');
         $('#gameState').removeClass('d-none');
     }
+}
+
+function resetHands() {
+    PlayerHand = [0];
+    DealerHand = [0];
+    winnar = 0;
+    $('.cardsInPlay').remove('.cardsInPlay');
+    $('#draw-button').prop('disabled', false);
+    $('#draw-button').html('Hit');
+    $('#winnarMsg').addClass('d-none');
+    $('#wtg').addClass('d-none');
+    $('#tie').addClass('d-none');
+    $('#stand-button').prop('disabled', false);
+    $('#split-button').prop('disabled', false);
+    $('#new-button').addClass('d-none');
 }
 
 function dDrawCard() {
@@ -180,14 +192,25 @@ $('#stand-button').click(function () {
     bustCheck('dealer', DealerHand[DealerHand.length - 1]);
 });
 
+$('#new-button').click(function () {
+    resetHands();
+    dDrawCard();
+    pDrawCard();
+    pDrawCard();
+    $('#dealersSum').html(DealerHand[DealerHand.length - 1] + '.');
+    bustCheck('player', PlayerHand[PlayerHand.length - 1]);
+})
+
 function bustCheck(drawer, sum) {
     switch (drawer) {
         case 'dealer':
             if (sum === 21) {
                 $('#dealersSum').html('Blackjack!');
+                whoWon()
             } else if (sum > 21) {
                 $('#dealersSum').html('busted.');
                 winnar = 'Player';
+                whoWon();
             } else if (sum < 17) {
                 DealerHand.unshift(DealerDeck.deck.shift());
                 DealerHand[DealerHand.length - 1] += cardEval(DealerHand[0].value);
@@ -205,6 +228,10 @@ function bustCheck(drawer, sum) {
                 $('#draw-button').prop('disabled', true);
                 $('#draw-button').html('Bust!');
                 $('#playerSum').html('busted.');
+                winnar = 'Dealer';
+                whoWon();
+                dDrawCard();
+                $('#dealersSum').html(DealerHand[DealerHand.length - 1] + '.');
             } else {
                 $('#playerSum').html(PlayerHand[PlayerHand.length - 1] + '.');
             }
@@ -229,12 +256,23 @@ function bustCheck(drawer, sum) {
 } */
 
 function whoWon() {
-    if (PlayerHand[PlayerHand.length - 1] > DealerHand[DealerHand.length - 1]) {
-        winnar = 'Player';
+    $('#wtg').removeClass('d-none');
+    $('#winnarMsg').removeClass('d-none');
+    if (PlayerHand[PlayerHand.length - 1] > DealerHand[DealerHand.length - 1] && !winnar) {
+        $('#winnarMsg').html('Player');
+    } else if (PlayerHand[PlayerHand.length - 1] < DealerHand[DealerHand.length - 1] && !winnar) {
+        $('#winnarMsg').html('Dealer');
+    } else if (PlayerHand[PlayerHand.length - 1] === DealerHand[DealerHand.length - 1] && !winnar) {
+        $('#winnarMsg').addClass('d-none');
+        $('#wtg').addClass('d-none');
+        $('#tie').removeClass('d-none');
     } else {
-        winnar = 'Dealer';
+        $('#winnarMsg').html(winnar);
     }
-    $('#winnarMsg').html(winnar);
+    $('#draw-button').prop('disabled', true);
+    $('#stand-button').prop('disabled', true);
+    $('#split-button').prop('disabled', true);
+    $('#new-button').removeClass('d-none');
 }
 
 /* function centeredText(string, fontSize, color) {
